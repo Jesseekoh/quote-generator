@@ -24,7 +24,7 @@ const postFacebookQuote = () => {
   console.log("facebook");
   const quote = quoteText.textContent;
   const author = authorText.textContent;
-  const facebookUrl = `https://online-courses.club/`;
+  const facebookUrl = `https://facebook.com`;
   window.open(facebookUrl, "_blank");
 };
 
@@ -39,7 +39,7 @@ const tweetQuote = () => {
 const getQuote = async () => {
   loading();
   const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-  const url = "https://api.quotable.io/random";
+  const url = "https://api.quotable.io/random?minLength=50";
 
   try {
     const resp = await fetch(url);
