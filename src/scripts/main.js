@@ -14,9 +14,9 @@ const loading = () => {
 };
 
 const loaded = () => {
-  if (loader.style.display === 'block') {
-    hero.style.display = 'block';
-    loader.style.display = 'none'
+  if (!loader.hidden) {
+    hero.hidden = false;
+    loader.hidden = true;
   }
 }
 
@@ -37,28 +37,28 @@ const tweetQuote = () => {
 };
 
 const getQuote = async () => {
-  loading()
+  loading();
   const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-  const url =
-    "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json";
+  const url = "https://api.quotable.io/random";
 
   try {
-    const resp = await fetch(proxyUrl + url);
+    const resp = await fetch(url);
     const data = await resp.json();
-    if (data.quoteAuthor === "") {
+    console.log(data)
+    if (data.author === "") {
       authorText.textContent = "Anonymous";
     } else {
-      authorText.textContent = data.quoteAuthor;
+      authorText.textContent = data.author;
     }
 
-    if (data.quoteText.length > 120) {
+    if (data.content.length > 120) {
       quoteText.classList.add("long");
     } else {
       quoteText.classList.remove("long");
     }
-    quoteText.textContent = data.quoteText;
+    quoteText.textContent = data.content;
 
-    loaded()
+    loaded();
   } catch (error) {
     getQuote();
     // console.log('Something went wrong', error)
@@ -66,18 +66,20 @@ const getQuote = async () => {
 };
 
 const shareBtnTransition = () => {
-  shareBtn.onclick = () => {
-    console.log(dropdownContent);
+  shareBtn.addEventListener('click', (e) => {
+
+    console.log(e.target)
     dropdownContent.classList.toggle("show");
-  };
-  window.onclick = (e) => {
-    if (!e.target.matches(".share")) {
-      if (dropdownContent.classList.contains("show")) {
-        dropdownContent.classList.remove("show");
-      }
-    }
-  };
+  })
+  // window.onclick = (e) => {
+  //   if (!e.target.classList.contains("share") || !e.target.classList.contains('fa-share')) {
+  //     if (dropdownContent.classList.contains("show")) {
+  //       dropdownContent.classList.remove("show");
+  //     }
+  //   }
+  // };
 };
+
 
 shareBtnTransition();
 
@@ -85,5 +87,3 @@ newQuoteBtn.onclick = getQuote;
 facebookBtn.onclick = postFacebookQuote;
 twitterBtn.onclick = tweetQuote;
 getQuote()
-
-// loading()

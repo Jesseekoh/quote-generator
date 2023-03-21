@@ -1,8 +1,15 @@
 :root {
-  --accent-color: #0d64e7;
+  --color-bg: rgb(255, 255, 255);
   --accent-color: #19ec9b;
+  --on-background: #333;
   --twitter-blue: #38a1f3;
   --facebook-blue: #1472ff;
+}
+
+[data-theme="dark"] {
+  --color-bg: #121212;
+  --accent-color: #16bd9e;
+  --on-background: rgba(255, 255, 255, 0.9);
 }
 
 *,
@@ -19,9 +26,10 @@ html {
   width: 100%;
   font-family: Montserrat, 'Helvetica Neue', sans-serif;
   scroll-behavior: smooth;
-  /* background:linear-gradient(rgb(111, 58, 225), rgb(046, 150, 182)); */
-  
-  color: #333;
+  /* color: var(--on-background); */
+  color: aliceblue;
+  background-color: #1c354f;
+  background-image: url(../bg-texture.png);
 }
 
 
@@ -49,6 +57,7 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
+
 
 
 .quote {
@@ -126,8 +135,8 @@ hr {
   /* font-size: clamp(1.2rem, 5vw,); */
   font-weight: 700;
   border-radius: 10px;
-  color: #fff;
-  background-color: #333 !important;
+  color: #333;
+  background-color: #19ec9b !important;
   padding: 8px 1rem;
   cursor: pointer;
   outline: none;
@@ -162,10 +171,10 @@ hr {
   position: absolute;
   /* background-color: #fff; */
   width: 100%;
-  padding: 8px;
+  /* padding: 8px; */
   bottom: 110%;
   transition: all 150ms ease-in;
-  opacity: 0;
+  /* opacity: 0; */
   border-radius: 5px;
   transform-origin: bottom;
   transform: scale(1, 0);
@@ -173,10 +182,18 @@ hr {
   /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
 }
 
+.dropdown-content {
+  opacity: 0;
+}
+
 .show {
   display: block;
   opacity: 1;
   transform: scale(1, 1);
+}
+
+.show i {
+  opacity: 1;
 }
 
 /* .dropdown:focus-within .dropdown-content {
@@ -189,6 +206,7 @@ hr {
 .btn.share {
   position: relative;
   border: none;
+  display: block;
 }
 
 
@@ -196,7 +214,9 @@ hr {
 .social.btn {
   background-color: var(--accent-color);
   margin-bottom: 10px;
-  border-radius: 50%;
+  padding: 8px;
+  width: 100%;
+  /* border-radius: 50%; */
   transition: all 250ms ease-in;
   /* font-size: 1.5rem; */
 }
@@ -206,17 +226,28 @@ hr {
 }
 
 /* Loader Animation */
-/* @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loader {
+  display: none;
   border: 5px solid #f3f3f3;
   border-radius: 50%;
   border-top: 5px solid var(--accent-color);
@@ -224,10 +255,10 @@ hr {
   height: 120px;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
-}  */
+}
 
 
-.loader {
+/* .loader {
   display: none;
   width: 48px;
   height: 48px;
@@ -258,4 +289,87 @@ hr {
   100% {
     transform: rotate(360deg);
   }
+} */
+
+
+
+
+/* Theme switch */
+
+.switch {
+  position: absolute;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  z-index: 1;
+  right: 1rem;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--accent-color);
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* sun and moon */
+.theme_toggle {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 4px;
+  /* bottom: 4px; */
+  background-color: transparent;
+  font-size: 2.5rem;
+  color: #19ec9b;
+
 }
